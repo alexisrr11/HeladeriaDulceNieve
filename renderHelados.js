@@ -16,8 +16,7 @@ const modalCarrito = document.getElementById("modal-carrito");
 const contenedorCarrito = document.getElementById("en-carrito");
 const contadorCarrito = document.getElementById("contador-carrito");
 const btnWhatsapp = document.getElementById("btn-whatsapp");
-const selectFiltroDos = document.getElementById("select-filtro-dos");
-const inputBuscarDos = document.getElementById("input-Buscar-dos");
+const mensajeCarrito = document.getElementById("mensaje-carrito");
 
 inputBuscar
 let saboresSeleccionados = [];
@@ -292,4 +291,5 @@ const tamaños = [
 tamaños.forEach(({ boton, medida, sabores }) => {
   boton.addEventListener("click", () => abrirModal(medida, sabores));
 });
+
 
