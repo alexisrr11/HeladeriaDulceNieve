@@ -237,7 +237,7 @@ function actualizarWhatsapp() {
     })
     .join("\n");
 
-  btnWhatsapp.href = `https://wa.me/549112345678?text=${encodeURIComponent("Hola! Quisiera pedir:\n" + mensajes)}`;
+  btnWhatsapp.href = `https://wa.me/5491137659081?text=${encodeURIComponent("Hola! Quisiera pedir:\n" + mensajes)}`;
   btnWhatsapp.classList.remove("hidden");
 }
 
