@@ -16,6 +16,10 @@ const modalCarrito = document.getElementById("modal-carrito");
 const contenedorCarrito = document.getElementById("en-carrito");
 const contadorCarrito = document.getElementById("contador-carrito");
 const btnWhatsapp = document.getElementById("btn-whatsapp");
+const selectFiltroDos = document.getElementById("select-filtro-dos");
+const inputBuscarDos = document.getElementById("input-Buscar-dos");
+
+inputBuscar
 let saboresSeleccionados = [];
 let limiteSabores = 0;
 
@@ -34,18 +38,37 @@ fetch("./sabores.json")
 
 // === RENDERIZAR LISTA GENERAL ===
 function renderizarSabores(sabores) {
-  contenedorSabores.innerHTML = sabores
+  // 1️⃣ Agrupar por categoría
+  const categorias = sabores.reduce((acc, sabor) => {
+    if (!acc[sabor.categoria]) acc[sabor.categoria] = [];
+    acc[sabor.categoria].push(sabor);
+    return acc;
+  }, {});
+
+  // 2️⃣ Generar el HTML agrupado
+  contenedorSabores.innerHTML = Object.keys(categorias)
     .map(
-      (sabor) => `
-        <div class="bg-white rounded-xl shadow-lg p-4 my-2 text-center hover:scale-105 transition-transform">
-          <img src="${sabor.imagen}" alt="${sabor.nombre}" class="w-full h-48 object-cover rounded-lg mb-3">
-          <h3 class="text-xl font-semibold text-pink-600">${sabor.nombre}</h3>
-          <p class="text-gray-600 text-sm mb-2">${sabor.descripcion}</p>
-          <span class="text-xs font-semibold bg-pink-100 text-pink-700 px-3 py-1 rounded-full">${sabor.categoria}</span>
+      (categoria) => `
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-pink-700 mb-4">${categoria}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            ${categorias[categoria]
+              .map(
+                (sabor) => `
+                  <div class="bg-white rounded-xl shadow-lg p-4 text-center hover:scale-105 transition-transform">
+                    <img src="${sabor.imagen}" alt="${sabor.nombre}" 
+                         class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-pink-600">${sabor.nombre}</h3>
+                    <p class="text-gray-600 text-sm mb-2">${sabor.descripcion}</p>
+                  </div>`
+              )
+              .join("")}
+          </div>
         </div>`
     )
     .join("");
 }
+
 
 // === RENDERIZAR PEDIDOS AGRUPADOS ===
 function renderizarPedidos(sabores) {
