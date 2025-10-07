@@ -249,8 +249,11 @@ function actualizarWhatsapp() {
   if (contenedorCarrito.children.length === 0) {
     btnWhatsapp.classList.add("hidden");
     btnWhatsapp.href = "#";
+    mensajeCarrito.innerHTML="'No hay ningun pedido en el carrito'";
     return;
-  }
+  } else {
+    mensajeCarrito.innerHTML="";
+}
 
   const mensajes = Array.from(contenedorCarrito.children)
     .map(pedidoDiv => {
@@ -289,3 +292,4 @@ const tamaños = [
 tamaños.forEach(({ boton, medida, sabores }) => {
   boton.addEventListener("click", () => abrirModal(medida, sabores));
 });
+
