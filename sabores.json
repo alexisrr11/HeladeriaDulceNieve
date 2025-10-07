@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "nombre": "Vainilla",
+    "descripcion": "Clásico y cremoso sabor a vainilla natural con un toque de dulce aroma.",
+    "categoria": "Clásicos",
+    "imagen": "https://img.freepik.com/fotos-premium/helado-vainilla_518173-1698.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Chocolate",
+    "descripcion": "Helado intenso de cacao puro con textura suave y fundente.",
+    "categoria": "Clásicos",
+    "imagen": "https://www.heladeria.com/files/ups/news/05-2020/helado-chocolate_900x600.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Frutilla",
+    "descripcion": "Hecho con frutillas frescas, sabor natural y un toque ácido equilibrado.",
+    "categoria": "Frutales",
+    "imagen": "https://img.freepik.com/fotos-premium/textura-helado-fresa_73152-1865.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Dulce de Leche",
+    "descripcion": "Sabor tradicional argentino, elaborado con dulce de leche artesanal.",
+    "categoria": "Especiales",
+    "imagen": "https://img.freepik.com/fotos-premium/textura-helado-chocolate-casero_505557-10348.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Menta Granizada",
+    "descripcion": "Refrescante menta combinada con trocitos de chocolate amargo.",
+    "categoria": "Clásicos",
+    "imagen": "https://elpolohelados.com.ar/wp-content/uploads/2020/10/menta-granizada.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Cookies & Cream",
+    "descripcion": "Helado de crema con trozos de galletitas de chocolate.",
+    "categoria": "Modernos",
+    "imagen": "https://es.cravingsjournal.com/wp-content/uploads/2022/11/helado-de-cookies-and-cream-5.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Limón",
+    "descripcion": "Helado liviano y refrescante, hecho con jugo natural de limón.",
+    "categoria": "Frutales",
+    "imagen": "https://thumbs.dreamstime.com/b/textura-del-top-del-lim%C3%B3n-del-helado-93150530.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Maracuyá",
+    "descripcion": "Exótico y tropical, con un sabor intenso a fruta de la pasión.",
+    "categoria": "Frutales",
+    "imagen": "https://cdn0.uncomo.com/es/posts/9/8/7/como_hacer_helado_de_maracuya_53789_paso_9_600.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Sambayón",
+    "descripcion": "Clásico sabor italiano hecho con vino oporto y yemas de huevo.",
+    "categoria": "Especiales",
+    "imagen": "https://i.pinimg.com/736x/3c/f0/e6/3cf0e69292eb3ca83156bdcbe05fb6e9.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Chocolate con Almendras",
+    "descripcion": "Helado cremoso de chocolate con trozos de almendra tostada.",
+    "categoria": "Especiales",
+    "imagen": "https://img.freepik.com/fotos-premium/textura-helado-chocolate_518173-1901.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Frutos Rojos",
+    "descripcion": "Mezcla natural de arándanos, frambuesas y moras.",
+    "categoria": "Frutales",
+    "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyNBRqK9CeJcz3cbcP-p9et9eT6z8rsObF9GXvo3oXnaVFYM29vyyBOTwX0w5QAHThqFssKTPJNW2ev4gZ348qRsV9u195U8axDZ7FZwODDOuNqVFFEeejUsJfryZP9l5IPg7JLLi-vzl1/s1600/gelattii02.png"
+  },
+  {
+    "id": 12,
+    "nombre": "Tiramisú",
+    "descripcion": "Inspirado en el postre italiano, con mascarpone, café y cacao.",
+    "categoria": "Gourmet",
+    "imagen": "https://thumbs.dreamstime.com/b/detalle-de-marco-completo-gelato-sabor-tiramis%C3%BA-congelado-acercamiento-la-textura-superficie-cremosa-del-helado-tiramisu-cierre-221661168.jpg"
+  }
+]

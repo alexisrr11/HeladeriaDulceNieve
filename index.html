@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heladería Dulce Nieve</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="./index.js"></script>
+  <script type="module" src="./renderHelados.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body id="inicio" class="font-sans bg-yellow-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="fixed w-full bg-pink-500 text-white shadow z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">🍦 Dulce Nieve</h1>
+      <div class="flex">
+        <div class="flex gap-4">
+          <button id="btn-modal-carrito" class="flex text-3xl pt-2">
+            <p id="contador-carrito" class="text-lg font-semibold pt-2">0</p>
+            <i class='bx bx-shopping-bag'></i>
+          </button>
+          <button id="btn-menu" class="text-4xl">
+            <i class='rounded-full p-1 border-2 border-gray-100 bx bx-menu-alt-right'></i>
+          </button>
+        </div>
+
+        <!-- Modal cart -->
+        <div id="modal-carrito"
+          class="hidden fixed top-[79px] right-1 text-center text-black bg-white/95 w-96 h-96 overflow-y-auto rounded-lg z-50">
+          <h3 class="text-2xl pt-4">Pedido</h3>
+          <div id="en-carrito" class="flex flex-col justify-around items-center gap-4 py-4 m-2">
+          </div>
+          <div id="total">
+          </div>
+          <div class="p-4">
+            <a id="btn-whatsapp" href="#" target="_blank"
+              class="hidden w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-lg block text-center mt-2">
+              Comprar por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <nav id="menu-nav"
+          class="hidden absolute right-0 top-[79px] flex flex-col justify-around bg-pink-600 rounded-md h-80 w-60 text-center p-8 z-20">
+          <a href="#inicio" class="hover:text-yellow-200">Inicio</a>
+          <a href="#pedido" class="hover:text-yellow-200">Hacer Pedido</a>
+          <a href="#sabores-container" class="hover:text-yellow-200">Sabores</a>
+          <a href="#contactos" class="hover:text-yellow-200">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative flex items-center justify-center bg-cover bg-center bg-fixed bg-blend-overlay bg-no-repeat
+  bg-[url('https://img.freepik.com/premium-photo/ice-cream-cone-with-vintageinspired-ice-cream-parlor-interior_947794-6722.jpg')]
+  h-screen">
+
+    <div class="bg-black/50 text-white text-center p-8 rounded-xl z-10">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">El mejor helado artesanal</h2>
+      <p class="mb-6 text-lg">Fresco, natural y lleno de sabor</p>
+      <button id="btn-pedido-oculto"
+      class="bg-pink-500 text-2xl hover:bg-pink-600 text-white p-3 rounded-lg font-semibold">
+      <i class='bx bxs-chevrons-right'></i>
+      🍦 Haga su pedido
+      🍦
+      <i class='bx bxs-chevrons-left'></i>
+    </button>
+    </div>
+
+    <!-- Efecto Splash Inferior -->
+    <div class="absolute bottom-0 left-0 w-[98.9vw] overflow-hidden leading-none">
+      <svg class="relative block w-[1500px] h-[80px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+        preserveAspectRatio="none">
+        <path
+          d="M321.39,56.19c58-10.79,114.16-30.13,172-41.16C626.74,0,684,0,741.86,9.84c60.16,10.27,117.83,31.76,177.05,41.25,52.75,8.31,106.8,6.66,159.5-5.49V120H0V82.41C70.28,73.54,140.55,66.87,210.82,60.8,247.55,57.69,284.27,61.3,321.39,56.19Z"
+          fill="violet"></path>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- Destacados -->
+  <section id="destacados" class="py-10 px-6 max-w-7xl mx-auto">
+    <h3 class="text-3xl font-bold text-pink-600 text-center mb-10">Sabores Destacados</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-xl shadow p-6 text-center">
+        <img src="https://www.yummyfoodrecipes.com/resources/picture/org/Tasty-Chocolate-Ice-Cream.jpg"
+          class="rounded-lg mb-4 min-h-60">
+        <h4 class="text-xl font-semibold">Chocolate</h4>
+        <p class="text-gray-600">Clásico y cremoso, favorito de todos.</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 text-center">
+        <img src="https://t3.ftcdn.net/jpg/06/04/28/70/360_F_604287038_6OaAeP8u9QL1yci3kqDxbCKqSpfsQHBd.jpg"
+          alt="Frutilla" class="rounded-lg mb-4 min-h-60">
+        <h4 class="text-xl font-semibold">Frutilla</h4>
+        <p class="text-gray-600">Refrescante, dulce y natural.</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 text-center">
+        <img src="https://comidaperuana.online/wp-content/uploads/2022/09/receta-de-helado-de-pacay-768x512.webp"
+          alt="Vainilla" class="rounded-lg mb-4 min-h-60">
+        <h4 class="text-xl font-semibold">Vainilla</h4>
+        <p class="text-gray-600">Suave, aromático y perfecto para combinar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pedidos -->
+  <div id="pedido" class="text-center py-2">
+    <div id="pedido-oculto" class="hidden fixed bg-white top-0 py-6 h-screen w-full z-40">
+      <h3 class="text-3xl font-bold text-pink-600 text-center py-10">Elija un Pote</h3>
+      <button id="btn-cerrar-modal-potes" class="fixed top-6 right-[5%] text-3xl z-30">
+        <i class='bx bx-x'></i>
+      </button>
+      <button id="un-octavo"
+        class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
+        <img src="./images/unOctavo.png" alt="" class="w-24 h-24 rounded-md">
+        <h4 class="font-bold pt-4 text-2xl">
+          1/8 Kg
+        </h4>
+      </button>
+      <button id="un-cuarto"
+        class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
+        <img src="./images/unCuarto.png" alt="" class="w-24 h-24 rounded-md">
+        <h4 class="font-bold pt-4 text-2xl">
+          1/4 Kg
+        </h4>
+      </button>
+      <button id="un-medio"
+        class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
+        <img src="./images/medioKilo.png" alt="" class="w-24 h-24 rounded-md">
+        <h4 class="font-bold pt-4 text-2xl">
+          1/2 Kg
+        </h4>
+      </button>
+      <button id="un-kilo"
+        class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
+        <img src="./images/unKilo.png" alt="" class="w-24 h-24 rounded-md">
+        <h4 class="font-bold pt-4 text-2xl">
+          1 Kg
+        </h4>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Pedidos -->
+  <div id="modal-pedidos" class="hidden fixed top-0 w-full h-screen bg-white overflow-y-auto rounded-lg text-center z-50">
+    <button id="btn-cerrar-modal-pedidos" class="fixed top-6 right-[5%] text-3xl z-30"><i class='bx bx-x'></i></button>
+    <h3 id="titulo-modal" class="text-3xl font-bold text-pink-600 text-center py-6">
+      Pote de 1/8 Kg
+    </h3>
+    <p id="descripcion-modal" class="text-left text-2xl px-4 py-3 font-semibold">
+      Elija hasta 2 sabores:
+    </p>
+    <div class="flex flex-col py-6 px-20">
+      <input type="text" id="buscar-nombre" placeholder="Buscar sabor..." class="mb-4 p-2 border rounded" />
+      <select id="filtro-categorias" class="border rounded-lg p-2 text-sm w-60">
+        <option value="todas">Filtrar por categorías</option>
+      </select>
+    </div>
+    <div id="lista-gustos-pedidos" class="px-4">
+      <!-- Aquí se renderizan los sabores -->
+    </div>
+  </div>
+
+  <!-- sabores -->
+  <div id="sabores-container" class="px-10 py-4">
+    <h3 class="text-3xl font-bold text-pink-600 pl-10 my-10 border-b-2 border-pink-500 py-2">Todos los Sabores</h3>
+    <div id="sabores" class="grid-cols-1 md:grid grid-cols-3 gap-4">
+    </div>
+  </div>
+
+  <!-- Promoción 
+  <section id="promo" class="bg-white py-16 px-6 text-center">
+    <h3 class="text-3xl font-bold text-pink-600 mb-6">🎉 Promoción del Día</h3>
+    <p class="text-lg mb-6">Lunes a Viernes: 2x1 en cucuruchos</p>
+    <a href="#contacto" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-lg">
+      Aprovechar Promo
+    </a>
+  </section> -->
+
+  <!-- Footer Heladería -->
+  <footer id="contactos" class="bg-pink-900 text-gray-100 pt-6">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 pb-8">
+      <!-- Descripción -->
+      <div>
+        <p class="text-sm">
+          Heladería artesanal ofreciendo los sabores más deliciosos y frescos. Vení a disfrutar de nuestros conos, potes
+          y postres en CABA y GBA.
+        </p>
+      </div>
+
+      <!-- Redes sociales / Contacto -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-pink-600">Seguinos / Contacto</h3>
+        <div class="flex gap-4 text-2xl mb-4">
+          <a href="#" class="hover:text-blue-400"><i class='bx bxl-facebook'></i></a>
+          <a href="#" class="hover:text-pink-500"><i class='bx bxl-instagram'></i></a>
+          <a href="https://wa.me/54911234567890" target="_blank" class="hover:text-green-500"><i
+              class='bx bxl-whatsapp'></i></a>
+        </div>
+        <p class="text-sm">
+          Consultas al: <a href="tel:+541112345678" class="hover:text-pink-600">+54 11 1234-5678</a><br>
+          Email: <a href="mailto:contacto@heladeria.com" class="hover:text-pink-600">contacto@heladeria.com</a><br>
+          Horarios: Lun a Dom 10:00 - 22:00
+        </p>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="w-full h-80 px-6 pb-8">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.838946929618!2d-58.38155948477036!3d-34.60368498045954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacc1d563f7f%3A0x8f8f9d82b56b57a!2sObelisco!5e0!3m2!1ses-419!2sar!4v1671234567890!5m2!1ses-419!2sar"
+        width="90%" height="100%" style="border:0; margin: auto;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" class="rounded-xl shadow-lg">
+      </iframe>
+    </div>
+
+    <!-- Copyright -->
+    <div class="bg-black/30 py-5 text-center text-sm">
+      <p>&copy; 2025 Heladería Delicias. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
