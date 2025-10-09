@@ -33,6 +33,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="./index.js"></script>
   <script type="module" src="./renderHelados.js"></script>
+  <script type="module" src="./adicionales.js"></script>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -170,29 +171,29 @@
       <button id="un-octavo"
         class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
         <img src="./images/unOctavo.png" alt="" class="w-24 h-24 rounded-md">
-        <h4 class="font-bold pt-4 text-2xl">
-          1/8 Kg
+        <h4 class="font-semibold text-lg">
+          (1/8 Kg)<br><strong class="text-2xl font-sans text-pink-600">$1000</strong>
         </h4>
       </button>
       <button id="un-cuarto"
         class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
         <img src="./images/unCuarto.png" alt="" class="w-24 h-24 rounded-md">
-        <h4 class="font-bold pt-4 text-2xl">
-          1/4 Kg
+        <h4 class="font-semibold text-lg">
+          (1/4 Kg)<br><strong class="text-2xl font-sans text-pink-600">$2000</strong>
         </h4>
       </button>
       <button id="un-medio"
         class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
         <img src="./images/medioKilo.png" alt="" class="w-24 h-24 rounded-md">
-        <h4 class="font-bold pt-4 text-2xl">
-          1/2 Kg
+        <h4 class="font-semibold text-lg">
+          (1/2 Kg)<br><strong class="text-2xl font-sans text-pink-600">$3000</strong>
         </h4>
       </button>
       <button id="un-kilo"
         class="border-2 border-black/20 px-8 py-2 bg-pink-100 rounded-tl-[60px] rounded-tr-[20px] rounded-br-[60px] rounded-bl-[20px] m-4 shadow-xl hover:scale-105 transition-transform">
         <img src="./images/unKilo.png" alt="" class="w-24 h-24 rounded-md">
-        <h4 class="font-bold pt-4 text-2xl">
-          1 Kg
+        <h4 class="font-semibold text-lg">
+          (1 Kg)<br><strong class="text-2xl font-sans text-pink-600">$4000</strong>
         </h4>
       </button>
     </div>
@@ -217,6 +218,21 @@
     <div id="lista-gustos-pedidos" class="px-4">
       <!-- Aquí se renderizan los sabores -->
     </div>
+  </div>
+
+  <!-- Modal de Adicionales -->
+  <div id="modal-adicionales"
+    class="hidden fixed top-0 w-full h-screen bg-white overflow-y-auto rounded-lg text-center z-50">
+    <button id="btn-cerrar-modal-adicionales" class="fixed top-6 right-[5%] text-3xl z-30"><i class='bx bx-x'></i></button>
+    <h3 id="titulo-modal" class="text-3xl font-bold text-pink-600 text-center py-6">
+      Adicionales
+    </h3>
+    <div id="contenedor-adicionales" class="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2  md:grid-cols-3 ">
+      <!-- Aquí se renderizan los sabores -->
+    </div>
+    <button id="confirmar-adicionales" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-3 rounded-lg w-full mt-4">
+      Confirmar adicionales
+    </button>
   </div>
 
   <!-- sabores -->
@@ -277,7 +293,3 @@
 </body>
 
 </html>
-
-
-
-
