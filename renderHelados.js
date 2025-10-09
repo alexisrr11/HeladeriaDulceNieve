@@ -17,8 +17,8 @@ const contenedorCarrito = document.getElementById("en-carrito");
 const contadorCarrito = document.getElementById("contador-carrito");
 const btnWhatsapp = document.getElementById("btn-whatsapp");
 const mensajeCarrito = document.getElementById("mensaje-carrito");
-
-inputBuscar
+const modalAdicionales = document.getElementById("modal-adicionales");
+let adicionalesSeleccionados = [];
 let saboresSeleccionados = [];
 let limiteSabores = 0;
 
@@ -52,22 +52,21 @@ function renderizarSabores(sabores) {
           <h2 class="text-2xl font-bold text-pink-700 mb-4">${categoria}</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             ${categorias[categoria]
-              .map(
-                (sabor) => `
+          .map(
+            (sabor) => `
                   <div class="bg-white rounded-xl shadow-lg p-4 text-center hover:scale-105 transition-transform">
                     <img src="${sabor.imagen}" alt="${sabor.nombre}" 
                          class="w-full h-48 object-cover rounded-lg mb-3">
                     <h3 class="text-xl font-semibold text-pink-600">${sabor.nombre}</h3>
                     <p class="text-gray-600 text-sm mb-2">${sabor.descripcion}</p>
                   </div>`
-              )
-              .join("")}
+          )
+          .join("")}
           </div>
         </div>`
     )
     .join("");
 }
-
 
 // === RENDERIZAR PEDIDOS AGRUPADOS ===
 function renderizarPedidos(sabores) {
@@ -146,6 +145,17 @@ function renderizarPedidos(sabores) {
   mostrarPedidos("todas");
 }
 
+// === CARGAR CARRITO DESDE LOCALSTORAGE AL INICIO ===
+window.addEventListener("DOMContentLoaded", () => {
+  const pedidosGuardados = JSON.parse(localStorage.getItem("carrito")) || [];
+  pedidosGuardados.forEach((pedido) => {
+    if (!pedido.sabores) pedido.sabores = [];
+    if (!pedido.adicionales) pedido.adicionales = [];
+    agregarPedidoAlDOM(pedido);
+  });
+  actualizarWhatsapp();
+});
+
 // === SELECCIONAR SABOR ===
 function seleccionarSabor(boton) {
   const nombre = boton.dataset.nombre;
@@ -155,114 +165,163 @@ function seleccionarSabor(boton) {
   boton.classList.add("line-through", "opacity-50");
 
   if (saboresSeleccionados.length < limiteSabores) {
-    const agregarOtro = confirm(
-      `Has elegido "${nombre}". ¿Querés agregar otro sabor?`
-    );
+    const agregarOtro = confirm(`Has elegido "${nombre}". ¿Querés agregar otro sabor?`);
     if (!agregarOtro) {
-      confirmarPedido();
+      preguntarAdicionales();
     }
   } else {
-    confirmarPedido(true);
+    preguntarAdicionales();
   }
 }
 
-// === CARGAR CARRITO DESDE LOCALSTORAGE AL INICIO ===
-window.addEventListener("DOMContentLoaded", () => {
-  const pedidosGuardados = JSON.parse(localStorage.getItem("carrito")) || [];
-  pedidosGuardados.forEach(pedido => {
-    // Normalizar pedido en caso de estructura incorrecta
-    if (!pedido.sabores) pedido.sabores = [];
-    agregarPedidoAlDOM(pedido);
+// === NUEVA PREGUNTA: DESEA AGREGAR ADICIONALES ===
+function preguntarAdicionales() {
+  const deseaAdicional = confirm("¿Desea agregar un adicional?");
+  if (deseaAdicional) {
+    abrirModalAdicionales();
+  } else {
+    confirmarPedido();
+  }
+}
+
+// === ABRIR MODAL DE ADICIONALES ===
+function abrirModalAdicionales() {
+  modalAdicionales.classList.remove("hidden");
+  adicionalesSeleccionados = [];
+
+  const cards = document.querySelectorAll("#contenedor-adicionales > div");
+
+  // 🔥 Eliminar cualquier listener previo
+  cards.forEach((card) => {
+    const newCard = card.cloneNode(true); // clon limpio
+    card.parentNode.replaceChild(newCard, card);
   });
-  actualizarWhatsapp();
-});
+
+  // Re-seleccionar los nuevos elementos ya limpios
+  const nuevasCards = document.querySelectorAll("#contenedor-adicionales > div");
+
+  // Agregar los listeners frescos
+  nuevasCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const nombre = card.querySelector("h3").textContent;
+
+      if (!adicionalesSeleccionados.includes(nombre)) {
+        adicionalesSeleccionados.push(nombre);
+        card.classList.add("ring", "ring-pink-400");
+      } else {
+        adicionalesSeleccionados = adicionalesSeleccionados.filter((a) => a !== nombre);
+        card.classList.remove("ring", "ring-pink-400");
+      }
+    });
+  });
+
+  // Botón confirmar
+  const btnConfirmarAdicionales = document.getElementById("confirmar-adicionales");
+  btnConfirmarAdicionales.onclick = () => {
+    modalAdicionales.classList.add("hidden");
+    confirmarPedido();
+  };
+}
 
 
 // === FUNCION PARA CONFIRMAR PEDIDO Y GUARDARLO ===
 function confirmarPedido(completo = false) {
-  alert(
-    `🍨 Pedido agregado!\nPote: ${tituloModal.textContent}\nSabores: ${saboresSeleccionados.join(", ")}${completo ? "\n(Se alcanzó el límite de sabores)" : ""
-    }`
-  );
-
   const pedido = {
     pote: tituloModal.textContent,
-    sabores: [...saboresSeleccionados]
+    sabores: [...saboresSeleccionados],
+    adicionales: [...adicionalesSeleccionados],
   };
 
-  // Guardar en localStorage
+  alert(
+    `🍨 Pedido agregado!\nPote: ${pedido.pote}\nSabores: ${pedido.sabores.join(", ")}${pedido.adicionales.length > 0 ? `\nAdicionales: ${pedido.adicionales.join(", ")}` : ""
+    }${completo ? "\n(Se alcanzó el límite de sabores)" : ""}`
+  );
+
+  // === GUARDAR EN LOCALSTORAGE ===
   const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
   carritoActual.push(pedido);
   localStorage.setItem("carrito", JSON.stringify(carritoActual));
 
-  // Agregar al DOM
+  // === AGREGAR AL DOM ===
   agregarPedidoAlDOM(pedido);
 
-  // Reiniciar selección y cerrar modal de pedido
+  // Reiniciar selección y cerrar modales
   saboresSeleccionados = [];
+  adicionalesSeleccionados = [];
+
+  //Quitar resaltado de los adicionales seleccionados
+  document.querySelectorAll("#contenedor-adicionales > div").forEach((card) => {
+    card.classList.remove("ring", "ring-pink-400");
+  });
+
   modalPedidos.classList.add("hidden");
   modalCarrito.classList.remove("hidden");
 }
 
-// === FUNCION PARA AGREGAR PEDIDO AL DOM ===
+// === AGREGAR PEDIDO AL DOM ===
 function agregarPedidoAlDOM(pedido) {
   const pedidoDiv = document.createElement("div");
-  pedidoDiv.classList.add("border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-around", "items-center");
+  pedidoDiv.classList.add(
+    "border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-around", "items-center"
+  );
 
   pedidoDiv.innerHTML = `
     <div>
       <p class="font-semibold">${pedido.pote}</p>
-      <p>${pedido.sabores.join(", ")}</p>
+      <p>🍧 Sabores: ${pedido.sabores.join(", ")}</p>
+      ${pedido.adicionales?.length > 0 ? `<p>➕ Adicionales: ${pedido.adicionales.join(", ")}</p>` : ""}
     </div>
     <button class="text-red-600 text-2xl hover:text-red-500"><i class='bx bx-trash'></i></button>
   `;
 
-  // Botón eliminar
+  // === ELIMINAR PEDIDO ===
   const btnEliminar = pedidoDiv.querySelector("button");
   btnEliminar.addEventListener("click", () => {
     pedidoDiv.remove();
-
-    // Actualizar localStorage
     const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
     const nuevoCarrito = carritoActual.filter(
-      p => !(p.pote === pedido.pote && p.sabores.join(",") === pedido.sabores.join(","))
+      (p) =>
+        !(
+          p.pote === pedido.pote &&
+          p.sabores.join(",") === pedido.sabores.join(",") &&
+          p.adicionales?.join(",") === pedido.adicionales?.join(",")
+        )
     );
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-
     actualizarWhatsapp();
     contadorDinamico();
   });
-  // Cantidad de hijos directos (cada pedido agregado)
-  function contadorDinamico () {
-    const cantidadPedidos = contenedorCarrito.children.length;
-    contadorCarrito.textContent = cantidadPedidos;
-  };
+
+  function contadorDinamico() {
+    contadorCarrito.textContent = contenedorCarrito.children.length;
+  }
 
   contenedorCarrito.appendChild(pedidoDiv);
   actualizarWhatsapp();
-  contadorDinamico ();
+  contadorDinamico();
 }
 
-// === FUNCION PARA ACTUALIZAR LINK DE WHATSAPP ===
+// === ACTUALIZAR LINK DE WHATSAPP ===
 function actualizarWhatsapp() {
   if (contenedorCarrito.children.length === 0) {
     btnWhatsapp.classList.add("hidden");
     btnWhatsapp.href = "#";
-    mensajeCarrito.innerHTML="'No hay ningun pedido en el carrito'";
+    mensajeCarrito.innerHTML = "No hay ningún pedido en el carrito";
     return;
   } else {
-    mensajeCarrito.innerHTML="";
-}
+    mensajeCarrito.innerHTML = "";
+  }
 
   const mensajes = Array.from(contenedorCarrito.children)
-    .map(pedidoDiv => {
-      const pote = pedidoDiv.querySelector("p.font-semibold").textContent;
-      const sabores = pedidoDiv.querySelectorAll("p")[1].textContent;
-      return `(${pote}: ${sabores}).`;
+    .map((pedidoDiv) => {
+      const partes = pedidoDiv.querySelectorAll("p");
+      return partes.length === 3
+        ? `(${partes[0].textContent}: ${partes[1].textContent}, ${partes[2].textContent});`
+        : `(${partes[0].textContent}: ${partes[1].textContent});`;
     })
     .join("\n");
 
-  btnWhatsapp.href = `https://wa.me/5491137659081?text=${encodeURIComponent("Hola! Quisiera pedir:\n" + mensajes)}`;
+  btnWhatsapp.href = `https://wa.me/5491137659081?text=${encodeURIComponent("Hola! Quisiera pedir: \n" + mensajes)}`;
   btnWhatsapp.classList.remove("hidden");
 }
 
@@ -291,5 +350,3 @@ const tamaños = [
 tamaños.forEach(({ boton, medida, sabores }) => {
   boton.addEventListener("click", () => abrirModal(medida, sabores));
 });
-
-
