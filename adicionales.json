@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "nombre": "Cucurucho",
+        "descripcion": "Cucurucho crocante ideal para servir una o dos bochas de helado.",
+        "precio": 300,
+        "imagen": "http://www.conoartic.com/uploads/1/2/7/5/127572453/cialdone.png",
+        "categoria": "Recipientes"
+    },
+    {
+        "id": 2,
+        "nombre": "Salsa de Frutilla",
+        "descripcion": "Salsa natural de frutilla con trozos de fruta.",
+        "precio": 300,
+        "imagen": "https://r.btcdn.co/r/eyJzaG9wX2lkIjozNjY2LCJnIjoiMTAwMHgifQ/37581417cd7519f/598054-SALSA_DE_FRUTILLA_300Gr_Gourmet.png",
+        "categoria": "Salsas"
+    },
+    {
+        "id": 3,
+        "nombre": "Granola Crocante",
+        "descripcion": "Mezcla de avena, miel y frutos secos tostados.",
+        "precio": 350,
+        "imagen": "https://down-sg.img.susercontent.com/file/sg-11134207-7rbkc-lmoc782h9j1l70",
+        "categoria": "Toppings"
+    },
+    {
+        "id": 4,
+        "nombre": "Chips de Chocolate",
+        "descripcion": "Gotas de chocolate semiamargo ideales para agregar al helado.",
+        "precio": 400,
+        "imagen": "https://worldwidechocolate.com/wp-content/uploads/2020/12/Felchlin-Sao-Palme-60-Dark-Couverture-Chocolate-480x480.jpg",
+        "categoria": "Toppings"
+    },
+    {
+        "id": 5,
+        "nombre": "Merenguitos",
+        "descripcion": "Pequeños merengues crocantes que aportan dulzura y textura.",
+        "precio": 300,
+        "imagen": "https://dulcemisu.com/16899-thickbox_default/merenguitos-azules.jpg",
+        "categoria": "Extras"
+    },
+    {
+        "id": 6,
+        "nombre": "Frutos Rojos",
+        "descripcion": "Mezcla de frambuesas, moras y arándanos naturales.",
+        "precio": 450,
+        "imagen": "https://admat-lody.pl/wp-content/uploads/2024/01/lody-produkty-horeca.jpg",
+        "categoria": "Frutas"
+    },
+    {
+        "id": 7,
+        "nombre": "Dulce de Leche Repostero",
+        "descripcion": "Clásico argentino, espeso y con mucho sabor.",
+        "precio": 400,
+        "imagen": "https://d3340tyzmtlo4u.cloudfront.net/users/864/images/thumbnails/300/300/detailed/15/Lheritier_Salsa_de_Dulce_de_Leche,_500_g.jpg",
+        "categoria": "Salsas"
+    },
+    {
+        "id": 8,
+        "nombre": "Salsa de Chocolate",
+        "descripcion": "Deliciosa salsa artesanal de cacao amargo.",
+        "precio": 300,
+        "imagen": "https://www.gourmet.cl/wp-content/uploads/2016/10/150626.jpg",
+        "categoria": "Salsas"
+    }
+]
