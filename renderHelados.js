@@ -191,26 +191,63 @@ function abrirModalAdicionales() {
 
   const cards = document.querySelectorAll("#contenedor-adicionales > div");
 
-  // 🔥 Eliminar cualquier listener previo
+  // 🔥 Limpiar listeners previos
   cards.forEach((card) => {
-    const newCard = card.cloneNode(true); // clon limpio
+    const newCard = card.cloneNode(true);
     card.parentNode.replaceChild(newCard, card);
   });
 
-  // Re-seleccionar los nuevos elementos ya limpios
+  // Re-seleccionar cards
   const nuevasCards = document.querySelectorAll("#contenedor-adicionales > div");
 
-  // Agregar los listeners frescos
   nuevasCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const nombre = card.querySelector("h3").textContent;
+    const nombre = card.querySelector("h3").textContent;
+    const btnsCantidad = card.querySelector("#btns-sumar-restar");
+    const cantidadSpan = btnsCantidad.querySelector("span");
 
-      if (!adicionalesSeleccionados.includes(nombre)) {
-        adicionalesSeleccionados.push(nombre);
+    btnsCantidad.classList.add("hidden");
+
+    card.addEventListener("click", () => {
+      const index = adicionalesSeleccionados.findIndex((a) => a.nombre === nombre);
+      const yaSeleccionado = index !== -1;
+
+      if (!yaSeleccionado) {
+        adicionalesSeleccionados.push({
+          nombre,
+          cantidad: parseInt(cantidadSpan.textContent),
+        });
         card.classList.add("ring", "ring-pink-400");
+        btnsCantidad.classList.remove("hidden");
       } else {
-        adicionalesSeleccionados = adicionalesSeleccionados.filter((a) => a !== nombre);
+        adicionalesSeleccionados.splice(index, 1);
         card.classList.remove("ring", "ring-pink-400");
+        btnsCantidad.classList.add("hidden");
+      }
+    });
+
+    // === Sumar/restar cantidad ===
+    const btnSumar = card.querySelector("#sumarAdicional");
+    const btnRestar = card.querySelector("#restarAdicional");
+
+    btnSumar.addEventListener("click", (e) => {
+      e.stopPropagation();
+      let cantidad = parseInt(cantidadSpan.textContent);
+      cantidad++;
+      cantidadSpan.textContent = cantidad;
+
+      const adicional = adicionalesSeleccionados.find((a) => a.nombre === nombre);
+      if (adicional) adicional.cantidad = cantidad;
+    });
+
+    btnRestar.addEventListener("click", (e) => {
+      e.stopPropagation();
+      let cantidad = parseInt(cantidadSpan.textContent);
+      if (cantidad > 1) {
+        cantidad--;
+        cantidadSpan.textContent = cantidad;
+
+        const adicional = adicionalesSeleccionados.find((a) => a.nombre === nombre);
+        if (adicional) adicional.cantidad = cantidad;
       }
     });
   });
@@ -229,27 +266,29 @@ function confirmarPedido(completo = false) {
   const pedido = {
     pote: tituloModal.textContent,
     sabores: [...saboresSeleccionados],
-    adicionales: [...adicionalesSeleccionados],
+    adicionales: [...adicionalesSeleccionados], // ahora son objetos {nombre, cantidad}
   };
 
+  const textoAdicionales =
+    pedido.adicionales.length > 0
+      ? pedido.adicionales.map((a) => `${a.nombre} x${a.cantidad}`).join(", ")
+      : "";
+
   alert(
-    `🍨 Pedido agregado!\nPote: ${pedido.pote}\nSabores: ${pedido.sabores.join(", ")}${pedido.adicionales.length > 0 ? `\nAdicionales: ${pedido.adicionales.join(", ")}` : ""
+    `🍨 Pedido agregado!\nPote: ${pedido.pote}\nSabores: ${pedido.sabores.join(", ")}${
+      textoAdicionales ? `\nAdicionales: ${textoAdicionales}` : ""
     }${completo ? "\n(Se alcanzó el límite de sabores)" : ""}`
   );
 
-  // === GUARDAR EN LOCALSTORAGE ===
   const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
   carritoActual.push(pedido);
   localStorage.setItem("carrito", JSON.stringify(carritoActual));
 
-  // === AGREGAR AL DOM ===
   agregarPedidoAlDOM(pedido);
 
-  // Reiniciar selección y cerrar modales
   saboresSeleccionados = [];
   adicionalesSeleccionados = [];
 
-  //Quitar resaltado de los adicionales seleccionados
   document.querySelectorAll("#contenedor-adicionales > div").forEach((card) => {
     card.classList.remove("ring", "ring-pink-400");
   });
@@ -262,31 +301,35 @@ function confirmarPedido(completo = false) {
 function agregarPedidoAlDOM(pedido) {
   const pedidoDiv = document.createElement("div");
   pedidoDiv.classList.add(
-    "border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-around", "items-center"
+    "border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-between", "items-center"
   );
+
+  const adicionalesHtml = pedido.adicionales?.length > 0
+    ? `<p class="adicionales">➕ Adicionales: ${pedido.adicionales.map(a => `${a.nombre} x${a.cantidad}`).join(", ")}</p>`
+    : "";
 
   pedidoDiv.innerHTML = `
     <div>
       <p class="font-semibold">${pedido.pote}</p>
       <p>🍧 Sabores: ${pedido.sabores.join(", ")}</p>
-      ${pedido.adicionales?.length > 0 ? `<p>➕ Adicionales: ${pedido.adicionales.join(", ")}</p>` : ""}
+      ${adicionalesHtml}
     </div>
-    <button class="text-red-600 text-2xl hover:text-red-500"><i class='bx bx-trash'></i></button>
+    <button class="btn-eliminar text-red-600 text-2xl hover:text-red-500"><i class='bx bx-trash'></i></button>
   `;
 
   // === ELIMINAR PEDIDO ===
-  const btnEliminar = pedidoDiv.querySelector("button");
+  const btnEliminar = pedidoDiv.querySelector(".btn-eliminar");
   btnEliminar.addEventListener("click", () => {
     pedidoDiv.remove();
+
     const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
-    const nuevoCarrito = carritoActual.filter(
-      (p) =>
-        !(
-          p.pote === pedido.pote &&
-          p.sabores.join(",") === pedido.sabores.join(",") &&
-          p.adicionales?.join(",") === pedido.adicionales?.join(",")
-        )
-    );
+    const nuevoCarrito = carritoActual.filter((p) => {
+      const mismoPote = p.pote === pedido.pote;
+      const mismosSabores = JSON.stringify(p.sabores) === JSON.stringify(pedido.sabores);
+      const mismosAdicionales = JSON.stringify(p.adicionales) === JSON.stringify(pedido.adicionales);
+      return !(mismoPote && mismosSabores && mismosAdicionales);
+    });
+
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     actualizarWhatsapp();
     contadorDinamico();
@@ -314,10 +357,10 @@ function actualizarWhatsapp() {
 
   const mensajes = Array.from(contenedorCarrito.children)
     .map((pedidoDiv) => {
-      const partes = pedidoDiv.querySelectorAll("p");
-      return partes.length === 3
-        ? `(${partes[0].textContent}: ${partes[1].textContent}, ${partes[2].textContent});`
-        : `(${partes[0].textContent}: ${partes[1].textContent});`;
+      const titulo = pedidoDiv.querySelector("p.font-semibold")?.textContent || "";
+      // tomamos todos los <p> excepto el primero (el título)
+      const detalles = Array.from(pedidoDiv.querySelectorAll("p")).slice(1).map(p => p.textContent).join(", ");
+      return `(${titulo}: ${detalles})`;
     })
     .join("\n");
 
