@@ -23,6 +23,15 @@ function renderizarAdicionales(adicionales) {
         <h3 class="text-xl font-bold">${item.nombre}</h3>
         <p class="text-gray-600 text-sm">${item.descripcion}</p>
         <p class="font-bold text-pink-600 mt-2">$${item.precio.toFixed(2)}</p>
+        <div id="btns-sumar-restar" class="py-2">
+          <button id="sumarAdicional" class="sumar-adicional">
+            <i class='border-2 border-pink-300 rounded-full p-2 bx bx-plus'></i>
+          </button>
+          <span class="cantidad-adicional px-2 text-xl font-semibold">1</span>
+          <button id="restarAdicional" class="restar-adicional">
+            <i class='border-2 border-pink-300 rounded-full p-2 bx bx-minus'></i>
+          </button>
+        </div>
       </div>
     `
     )
