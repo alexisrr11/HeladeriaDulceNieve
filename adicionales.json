@@ -4,7 +4,7 @@
         "nombre": "Cucurucho",
         "descripcion": "Cucurucho crocante ideal para servir una o dos bochas de helado.",
         "precio": 300,
-        "imagen": "http://www.conoartic.com/uploads/1/2/7/5/127572453/cialdone.png",
+        "imagen": "https://thumbs.dreamstime.com/b/blank-crispy-ice-cream-cone-real-edible-icecream-no-artificial-ingredients-used-150383578.jpg",
         "categoria": "Recipientes"
     },
     {
@@ -63,4 +63,5 @@
         "imagen": "https://www.gourmet.cl/wp-content/uploads/2016/10/150626.jpg",
         "categoria": "Salsas"
     }
+
 ]
