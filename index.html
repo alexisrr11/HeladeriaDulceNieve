@@ -57,7 +57,7 @@
         <!-- Modal cart -->
         <div id="modal-carrito"
           class="hidden fixed top-[79px] right-1 text-center text-black bg-white/95 w-96 h-96 overflow-y-auto rounded-lg z-50">
-          <h3 class="text-2xl pt-4">Pedido</h3>
+          <h3 class="text-2xl p-4 bg-pink-400 text-white">Pedido</h3>
           <p id="mensaje-carrito" class="pt-4"></p>
           <div id="en-carrito" class="flex flex-col justify-around items-center gap-4 py-4 m-2">
           </div>
@@ -98,10 +98,10 @@
         <i class='bx bxs-chevrons-left'></i>
       </button>
       <!-- Botón flotante -->
-        <button id="scrollDownBtn"
-          class="absolute bottom-[100px] right-[45%] text-5xl bg-black/50 rounded-full p-2 animate-bounce-slow">
-          <i class='bx bx-chevrons-down'></i>
-        </button>
+      <button id="scrollDownBtn"
+        class="absolute bottom-[100px] right-[45%] text-5xl bg-black/50 rounded-full p-2 animate-bounce-slow">
+        <i class='bx bx-chevrons-down'></i>
+      </button>
     </div>
 
     <!-- Efecto Splash Inferior -->
@@ -121,16 +121,17 @@
       <!-- Oferta 1 -->
       <div class="min-w-full bg-pink-50 text-pink-800 p-10 text-center flex flex-col items-center justify-center">
         <h3 class="text-3xl font-bold mb-3">🍦 2x1 en Cucuruchos</h3>
-        <img src="https://insidebrucrewlife.com/wp-content/uploads/2019/07/Chocolate-Peanut-Butter-Ice-Cream-6-1-768x1152.jpg" alt="Cucuruchos"
-          class="w-56 h-56 object-cover rounded-full shadow-lg mb-4">
+        <img
+          src="https://insidebrucrewlife.com/wp-content/uploads/2019/07/Chocolate-Peanut-Butter-Ice-Cream-6-1-768x1152.jpg"
+          alt="Cucuruchos" class="w-56 h-56 object-cover rounded-full shadow-lg mb-4">
         <p class="text-lg">Todos los martes, llevate el segundo cucurucho ¡gratis!</p>
       </div>
 
       <!-- Oferta 2 -->
       <div class="min-w-full bg-lime-50 text-yellow-800 p-10 text-center flex flex-col items-center justify-center">
         <h3 class="text-3xl font-bold mb-3">🍨 50% OFF en Medio Kilo</h3>
-        <img src="https://as2.ftcdn.net/v2/jpg/03/02/69/61/1000_F_302696164_bnCYfyj4znFUjzEmUpQf3Dcwe4k4QOfs.jpg" alt="Helado medio kilo"
-          class="w-56 h-56 object-cover rounded-full shadow-lg mb-4">
+        <img src="https://as2.ftcdn.net/v2/jpg/03/02/69/61/1000_F_302696164_bnCYfyj4znFUjzEmUpQf3Dcwe4k4QOfs.jpg"
+          alt="Helado medio kilo" class="w-56 h-56 object-cover rounded-full shadow-lg mb-4">
         <p class="text-lg">Los jueves, disfrutá medio kilo a mitad de precio.</p>
       </div>
 
@@ -144,12 +145,10 @@
     </div>
 
     <!-- Controles -->
-    <button id="prev"
-      class="absolute top-1/2 left-4 -translate-y-1/2 text-xl text-pink-500">
+    <button id="prev" class="absolute top-1/2 left-4 -translate-y-1/2 text-xl text-pink-500">
       <i class='bg-white/70 p-2 rounded-full shadow bx bxs-chevron-left'></i>
     </button>
-    <button id="next"
-      class="absolute top-1/2 right-4 -translate-y-1/2 text-xl text-pink-500 ">
+    <button id="next" class="absolute top-1/2 right-4 -translate-y-1/2 text-xl text-pink-500 ">
       <i class='bg-white/70 p-2 rounded-full shadow bx bxs-chevron-right'></i>
     </button>
 
@@ -199,6 +198,7 @@
     </div>
   </div>
 
+
   <!-- Modal de Pedidos -->
   <div id="modal-pedidos"
     class="hidden fixed top-0 w-full h-screen bg-white overflow-y-auto rounded-lg text-center z-50">
@@ -223,14 +223,16 @@
   <!-- Modal de Adicionales -->
   <div id="modal-adicionales"
     class="hidden fixed top-0 w-full h-screen bg-white overflow-y-auto rounded-lg text-center z-50">
-    <button id="btn-cerrar-modal-adicionales" class="fixed top-6 right-[5%] text-3xl z-30"><i class='bx bx-x'></i></button>
+    <button id="btn-cerrar-modal-adicionales" class="fixed top-6 right-[5%] text-3xl z-30"><i
+        class='bx bx-x'></i></button>
     <h3 id="titulo-modal" class="text-3xl font-bold text-pink-600 text-center py-6">
       Adicionales
     </h3>
     <div id="contenedor-adicionales" class="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2  md:grid-cols-3 ">
       <!-- Aquí se renderizan los sabores -->
     </div>
-    <button id="confirmar-adicionales" class="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-3 rounded-lg w-full mt-4">
+    <button id="confirmar-adicionales"
+      class="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-4 py-3 rounded-lg w-full mt-4">
       Confirmar adicionales
     </button>
   </div>
@@ -293,4 +295,3 @@
 </body>
 
 </html>
-
