@@ -301,7 +301,7 @@ function confirmarPedido(completo = false) {
 function agregarPedidoAlDOM(pedido) {
   const pedidoDiv = document.createElement("div");
   pedidoDiv.classList.add(
-    "border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-around", "items-center", "font-[cursive]", "gap-2", "text-lg"
+    "border-b", "border-gray-300", "w-full", "py-2", "flex", "justify-around", "items-center", "font-[cursive]", "gap-2", "text-xl"
   );
 
   const adicionalesHtml = pedido.adicionales?.length > 0
@@ -393,4 +393,5 @@ const tamaños = [
 tamaños.forEach(({ boton, medida, sabores }) => {
   boton.addEventListener("click", () => abrirModal(medida, sabores));
 });
+
 
